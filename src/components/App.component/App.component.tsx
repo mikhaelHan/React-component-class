@@ -2,13 +2,13 @@ import React from 'react';
 
 import './App.component.scss';
 
-import ApiService from '../../services/client-API.service';
+// import ApiService from '../../services/client-API.service';
 
 const App: React.FC = () => {
-  const data = [];
-  const getResult = async (): Promise<void> => {
-    const res = await ApiService();
-  };
+  // const data = [];
+  // const getResult = async (): Promise<void> => {
+  // const res = await ApiService();
+  // };
   return (
     <div className="wrapper">
       <h1 className="title">Class component !</h1>
