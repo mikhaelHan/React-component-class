@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 
 import './index.scss';
 
-import App from './components/App.component/App.component';
+import AppComponent from './components/App.component/App.component';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <AppComponent />
   </React.StrictMode>,
 );
