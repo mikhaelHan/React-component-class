@@ -2,13 +2,15 @@ import React from 'react';
 
 import './Search.component.scss';
 
-// import ApiService from '../../services/client-API.service';
+// import APIrequest from '../../services/client-API.service';
 
 const SearchComponent: React.FC = () => {
   // const data = [];
   // const getResult = async (): Promise<void> => {
-  // const res = await ApiService();
+  //   const res = await APIrequest('');
+  //   console.log(res);
   // };
+  // getResult();
   return (
     <div className="search-container">
       <input

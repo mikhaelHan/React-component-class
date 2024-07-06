@@ -44,7 +44,8 @@
         "peerDependencies": false
       }
     ],
-    "react-compiler/react-compiler": "error"
+    "react-compiler/react-compiler": "error",
+    "react/jsx-key": "off"
   },
   "settings": {
     "import/resolver": {

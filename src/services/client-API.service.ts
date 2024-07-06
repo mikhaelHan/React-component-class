@@ -1,16 +1,20 @@
+import { ISearchResult, ISearchItem } from '../models/Search.model';
+
 const PATH = `https://swapi.dev/api/people/`;
 
-const APIrequest = async (): Promise<unknown | null> => {
-  const url = `${PATH}?page=1`;
+const APIrequest = async (search: string): Promise<ISearchItem[] | null> => {
+  const url = `${PATH}?search=${search}`;
   try {
-    const response: Response = await fetch(url, {
+    const result: Response = await fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response.ok) return null;
+    if (!result.ok) return null;
 
-    return await response.json();
+    const response: ISearchResult = await result.json();
+
+    return response.results;
   } catch (error) {
     return null;
   }

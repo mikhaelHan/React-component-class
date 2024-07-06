@@ -18,10 +18,15 @@
 }
 
 .app-container {
-  background: #b7b7b6;
   padding: 1rem;
   width: 100%;
   border: 0.1rem solid #000000;
   border-radius: 2rem;
   box-shadow: 0rem 0rem 0.2rem 0.2rem #000000;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 }
