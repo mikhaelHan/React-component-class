@@ -23,6 +23,16 @@ class AppComponent extends React.Component<never, { data: ISearchItem[] }> {
     }
   }
 
+  public handleSearchChange = async (searchValue: string) => {
+    const search = searchValue.trim();
+    const res: ISearchItem[] | null = await APIrequest(search);
+    if (res) {
+      this.setState({ data: res });
+    } else {
+      this.setState({ data: [] });
+    }
+  };
+
   render(): React.ReactNode {
     const { data } = this.state;
 
@@ -30,7 +40,7 @@ class AppComponent extends React.Component<never, { data: ISearchItem[] }> {
       <div className="app-wrapper">
         <h1 className="app-title">Class component !</h1>
         <div className="app-container">
-          <SearchComponent />
+          <SearchComponent onSearchChange={this.handleSearchChange} />
         </div>
         <div className="app-container">
           <ul className="app-container__list">
