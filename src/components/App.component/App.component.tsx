@@ -5,9 +5,10 @@ import SearchComponent from '../Search.component/Search.component';
 import { ISearchItem } from '../../models/Search.model';
 import SearchItemComponent from '../Search-item.component/Search-item.component';
 import APIrequest from '../../services/client-API.service';
+import LSService from '../../services/Local-storage.service';
 
-class AppComponent extends React.Component<never, { data: ISearchItem[] }> {
-  constructor(props: never) {
+class AppComponent extends React.Component<unknown, { data: ISearchItem[] }> {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       data: [],
@@ -15,19 +16,23 @@ class AppComponent extends React.Component<never, { data: ISearchItem[] }> {
   }
 
   async componentDidMount() {
-    const res: ISearchItem[] | null = await APIrequest('');
-    if (res) {
-      this.setState({ data: res });
+    const LSResult: string = LSService();
+
+    const ApiResult: ISearchItem[] | null = await APIrequest(LSResult);
+    if (ApiResult) {
+      this.setState({ data: ApiResult });
     } else {
       this.setState({ data: [] });
     }
   }
 
-  public handleSearchChange = async (searchValue: string) => {
-    const search = searchValue.trim();
-    const res: ISearchItem[] | null = await APIrequest(search);
-    if (res) {
-      this.setState({ data: res });
+  public handleSearchChange = async (search: string) => {
+    const searchValue = search.trim();
+    const LSResult: string = LSService(searchValue);
+
+    const result: ISearchItem[] | null = await APIrequest(LSResult);
+    if (result) {
+      this.setState({ data: result });
     } else {
       this.setState({ data: [] });
     }
