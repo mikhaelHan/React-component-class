@@ -4,14 +4,15 @@ import './Search.component.scss';
 
 class SearchComponent extends React.Component<
   { onSearchChange: (searchValue: string) => void },
-  { search: string }
+  { search: string; toggle: boolean }
 > {
   constructor(props: { onSearchChange: (searchValue: string) => void }) {
     super(props);
-    this.state = { search: '' };
+    this.state = { search: '', toggle: false };
 
     this.inputOnChange = this.inputOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.throwError = this.throwError.bind(this);
   }
 
   public handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,8 +28,13 @@ class SearchComponent extends React.Component<
     this.setState({ search: val });
   };
 
+  public throwError = () => {
+    this.setState({ toggle: true });
+  };
+
   render(): React.ReactNode {
-    const { search } = this.state;
+    const { search, toggle } = this.state;
+    if (toggle) throw new Error('Oooops, something went wrong...');
     return (
       <div className="search-container">
         <form onSubmit={this.handleSubmit} className="search-container__form">
@@ -46,7 +52,11 @@ class SearchComponent extends React.Component<
             className="search-container__button"
           />
         </form>
-        <button type="button" className="search-container__button">
+        <button
+          onClick={this.throwError}
+          type="button"
+          className="search-container__button"
+        >
           Error
         </button>
       </div>

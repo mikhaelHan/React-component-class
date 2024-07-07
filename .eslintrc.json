@@ -47,7 +47,8 @@
     "react-compiler/react-compiler": "error",
     "react/jsx-key": "off",
     "react/prefer-stateless-function": "off",
-    "@typescript-eslint/naming-convention": "off"
+    "@typescript-eslint/naming-convention": "off",
+    "class-methods-use-this": "off"
   },
   "settings": {
     "import/resolver": {
