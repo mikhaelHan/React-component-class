@@ -45,7 +45,9 @@
       }
     ],
     "react-compiler/react-compiler": "error",
-    "react/jsx-key": "off"
+    "react/jsx-key": "off",
+    "react/prefer-stateless-function": "off",
+    "@typescript-eslint/naming-convention": "off"
   },
   "settings": {
     "import/resolver": {
