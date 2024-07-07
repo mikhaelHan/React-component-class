@@ -24,6 +24,12 @@
   border-radius: 2rem;
   box-shadow: 0rem 0rem 0.2rem 0.2rem #000000;
 
+  &__loading {
+    font-size: 2.6rem;
+    font-weight: 600;
+    font-style: oblique;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;

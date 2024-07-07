@@ -7,39 +7,46 @@ import SearchItemComponent from '../Search-item.component/Search-item.component'
 import APIrequest from '../../services/client-API.service';
 import LSService from '../../services/Local-storage.service';
 
-class AppComponent extends React.Component<unknown, { data: ISearchItem[] }> {
+class AppComponent extends React.Component<
+  unknown,
+  { data: ISearchItem[]; isLoading: boolean }
+> {
   constructor(props: unknown) {
     super(props);
     this.state = {
       data: [],
+      isLoading: true,
     };
   }
 
   async componentDidMount() {
+    this.setState({ isLoading: true });
     const LSResult: string = LSService();
 
     const ApiResult: ISearchItem[] | null = await APIrequest(LSResult);
     if (ApiResult) {
-      this.setState({ data: ApiResult });
+      this.setState({ data: ApiResult, isLoading: false });
     } else {
-      this.setState({ data: [] });
+      this.setState({ data: [], isLoading: false });
     }
   }
 
   public handleSearchChange = async (search: string) => {
+    this.setState({ isLoading: true });
+
     const searchValue = search.trim();
     const LSResult: string = LSService(searchValue);
 
     const result: ISearchItem[] | null = await APIrequest(LSResult);
     if (result) {
-      this.setState({ data: result });
+      this.setState({ data: result, isLoading: false });
     } else {
-      this.setState({ data: [] });
+      this.setState({ data: [], isLoading: false });
     }
   };
 
   render(): React.ReactNode {
-    const { data } = this.state;
+    const { data, isLoading } = this.state;
 
     return (
       <div className="app-wrapper">
@@ -48,21 +55,25 @@ class AppComponent extends React.Component<unknown, { data: ISearchItem[] }> {
           <SearchComponent onSearchChange={this.handleSearchChange} />
         </div>
         <div className="app-container">
-          <ul className="app-container__list">
-            {data.map((el: ISearchItem) => {
-              return (
-                <li key={el.created} className="app-container__item">
-                  <SearchItemComponent
-                    name={el.name}
-                    gender={el.gender}
-                    height={el.height}
-                    mass={el.mass}
-                    eye_color={el.eye_color}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          {isLoading ? (
+            <p className="app-container__loading">Loading ...</p>
+          ) : (
+            <ul className="app-container__list">
+              {data.map((el: ISearchItem) => {
+                return (
+                  <li key={el.created} className="app-container__item">
+                    <SearchItemComponent
+                      name={el.name}
+                      gender={el.gender}
+                      height={el.height}
+                      mass={el.mass}
+                      eye_color={el.eye_color}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
     );
