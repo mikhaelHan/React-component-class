@@ -23,6 +23,8 @@ class AppComponent extends React.Component<
     this.setState({ isLoading: true });
     const LSResult: string = LSService();
 
+    console.log('hello');
+
     const ApiResult: ISearchItem[] | null = await APIrequest(LSResult);
     if (ApiResult) {
       this.setState({ data: ApiResult, isLoading: false });

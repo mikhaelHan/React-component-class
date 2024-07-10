@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix . --max-warnings=0",
     "format:fix": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
     "preview": "vite preview",
-    "prepare": "cd ../ && husky install develop/.husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -45,6 +45,9 @@
     "vite": "^5.3.1"
   },
   "lint-staged": {
-    "/*.{ts,tsx,scss}": "prettier --write --ignore-unknown"
+    "**/*.{ts,tsx,scss}": [
+      "npx prettier --write",
+      "npx eslint --fix"
+    ]
   }
 }
