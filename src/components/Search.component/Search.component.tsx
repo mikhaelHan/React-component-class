@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './Search.component.scss';
+import LSService from '../../services/Local-storage.service';
 
 const SearchComponent: React.FC<{
   onSearchChange: (searchValue: string) => void;
 }> = (props) => {
-  const [valueState, setValueState] = useState<string>('');
+  const [valueState, setValueState] = useState<string>(LSService());
   const [toggleState, setToggleState] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
