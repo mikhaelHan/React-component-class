@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import './Search.component.scss';
 
 const SearchComponent: React.FC<{
   onSearchChange: (searchValue: string) => void;
 }> = (props) => {
-  const [searchState, setSearchState] = useState<string>('');
+  const [valueState, setValueState] = useState<string>('');
   const [toggleState, setToggleState] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const prevValue = useRef<string>('');
+
+  useEffect(() => {
+    prevValue.current = valueState;
+  }, [valueState]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const { onSearchChange } = props;
     e.preventDefault();
-    onSearchChange(searchState);
-    setSearchState('');
-  };
+    const searchValue = inputRef.current?.value.trim();
 
-  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.currentTarget.value;
-    setSearchState(val);
+    if (searchValue !== undefined && searchValue !== valueState) {
+      onSearchChange(searchValue);
+      setValueState(searchValue);
+    }
   };
 
   const throwError = () => {
@@ -29,8 +35,7 @@ const SearchComponent: React.FC<{
     <div className="search-container">
       <form onSubmit={handleSubmit} className="search-container__form">
         <input
-          onChange={inputOnChange}
-          value={searchState}
+          ref={inputRef}
           placeholder="Search..."
           className="search-container__input"
           type="search"

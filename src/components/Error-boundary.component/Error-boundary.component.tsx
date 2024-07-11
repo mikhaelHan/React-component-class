@@ -24,7 +24,9 @@ class ErrorBoundaryComponent extends React.Component<
     if (hasError) {
       return (
         <div className="error-container">
-          <h1 className="error-container__text">Что-то пошло не так !</h1>
+          <h1 className="error-container__text">
+            Oooops, something went wrong...
+          </h1>
         </div>
       );
     }
