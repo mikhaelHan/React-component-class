@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import './index.scss';
 
@@ -9,7 +10,9 @@ import ErrorBoundaryComponent from './components/Error-boundary.component/Error-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundaryComponent>
-      <AppComponent />
+      <BrowserRouter>
+        <AppComponent />
+      </BrowserRouter>
     </ErrorBoundaryComponent>
   </React.StrictMode>,
 );

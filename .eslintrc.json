@@ -40,8 +40,8 @@
       "error",
       {
         "devDependencies": true,
-        "optionalDependencies": false,
-        "peerDependencies": false
+        "optionalDependencies": true,
+        "peerDependencies": true
       }
     ],
     "react-compiler/react-compiler": "error",
