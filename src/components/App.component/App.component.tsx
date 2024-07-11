@@ -5,8 +5,8 @@ import './App.component.scss';
 import SearchComponent from '../Search.component/Search.component';
 import { ISearchItem } from '../../models/Search.model';
 import APIrequest from '../../services/client-API.service';
-import LSService from '../../services/Local-storage.service';
 import SearchListComponent from '../Search-list.component/Search-list.component';
+import useLocalStorage from '../../services/useLocalStorage.service';
 
 const AppComponent: React.FC = () => {
   const [state, setState] = useState<{ data: ISearchItem[]; isLoad: boolean }>({
@@ -14,25 +14,29 @@ const AppComponent: React.FC = () => {
     isLoad: false,
   });
 
-  const getData = async (search?: string) => {
+  const [searchQuery, setSearchQuery] = useLocalStorage();
+
+  const changeStorageValue = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  const getData = async (search: string) => {
     setState((prev) => ({ ...prev, isLoad: true }));
 
-    const LSResult: string =
-      search === undefined ? LSService() : LSService(search);
-    const ApiRes: ISearchItem[] | null = await APIrequest(LSResult);
+    const ApiRes: ISearchItem[] | null = await APIrequest(search);
 
     setState({ data: ApiRes || [], isLoad: false });
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div className="app-wrapper">
       <h1 className="app-title">Class component !</h1>
       <div className="app-container">
-        <SearchComponent onSearchChange={getData} />
+        <SearchComponent onSearchChange={changeStorageValue} />
       </div>
       <div className="app-container">
         {state.isLoad ? (
