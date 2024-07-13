@@ -9,7 +9,7 @@
 
 .home-page-title {
   width: 100%;
-  height: 6%;
+  height: 5%;
   font-size: 2.6rem;
   font-weight: 800;
 }
@@ -26,8 +26,12 @@
   }
 
   &__list {
-    height: 75%;
+    height: 68%;
     overflow-y: scroll;
+  }
+
+  &__pagination {
+    height: 8%;
   }
 
   &__loading {

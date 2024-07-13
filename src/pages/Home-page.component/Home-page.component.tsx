@@ -7,25 +7,48 @@ import { ISearchItem } from '../../models/Search.model';
 import APIrequest from '../../services/client-API.service';
 import SearchListComponent from '../../components/Search-list.component/Search-list.component';
 import useLocalStorage from '../../services/useLocalStorage.service';
+import PaginationComponent from '../../components/Pagination.component/Pagination.component';
+import { ILSValue } from '../../models/Local-storage.model';
 
 const HomePageComponent: React.FC = () => {
-  const [state, setState] = useState<{ data: ISearchItem[]; isLoad: boolean }>({
+  const [state, setState] = useState<{
+    data: ISearchItem[];
+    isLoad: boolean;
+    isPagination: boolean;
+  }>({
     data: [],
     isLoad: false,
+    isPagination: false,
   });
 
   const [searchQuery, setSearchQuery] = useLocalStorage();
 
-  const changeStorageValue = (value: string) => {
-    setSearchQuery(value);
+  const changeStorageSearch = (value: string) => {
+    const item: ILSValue = {
+      search: value,
+      page: 1,
+    };
+    setSearchQuery(item);
   };
 
-  const getData = async (search: string) => {
-    setState((prev) => ({ ...prev, isLoad: true }));
+  const changePaginationValue = (value: number) => {
+    const item: ILSValue = {
+      search: '',
+      page: value,
+    };
+    setSearchQuery(item);
+  };
 
-    const ApiRes: ISearchItem[] | null = await APIrequest(search);
-
-    setState({ data: ApiRes || [], isLoad: false });
+  const getData = async (qwery: ILSValue) => {
+    let ApiRes: ISearchItem[] | null;
+    if (qwery.search === '') {
+      setState((prev) => ({ ...prev, isLoad: true, isPagination: true }));
+      ApiRes = await APIrequest(`page=${qwery.page}`);
+      setState((prev) => ({ ...prev, data: ApiRes || [], isLoad: false }));
+    } else {
+      ApiRes = await APIrequest(`search=${qwery.search}`);
+      setState({ data: ApiRes || [], isLoad: false, isPagination: false });
+    }
   };
 
   useEffect(() => {
@@ -36,7 +59,7 @@ const HomePageComponent: React.FC = () => {
     <div className="home-page-wrapper">
       <h1 className="home-page-title">Class component !</h1>
       <div className="home-page-container home-page-container__search">
-        <SearchComponent onSearchChange={changeStorageValue} />
+        <SearchComponent onSearchChange={changeStorageSearch} />
       </div>
       <div className="home-page-container home-page-container__list">
         {state.isLoad ? (
@@ -45,6 +68,11 @@ const HomePageComponent: React.FC = () => {
           <SearchListComponent data={state.data} />
         )}
       </div>
+      {state.isPagination && (
+        <div className="home-page-container home-page-container__pagination">
+          <PaginationComponent onPaginationChange={changePaginationValue} />
+        </div>
+      )}
     </div>
   );
 };

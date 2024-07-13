@@ -1,5 +1,8 @@
-enum LSKey {
-  key = 'React-class-component',
+export enum LSKey {
+  key = 'React-routing-tests',
 }
 
-export default LSKey;
+export interface ILSValue {
+  search: string;
+  page: number;
+}

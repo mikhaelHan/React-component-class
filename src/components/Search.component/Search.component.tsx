@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './Search.component.scss';
-import LSKey from '../../models/Local-storage.model';
+import { LSKey } from '../../models/Local-storage.model';
 
 const SearchComponent: React.FC<{
   onSearchChange: (searchValue: string) => void;
@@ -9,8 +9,9 @@ const SearchComponent: React.FC<{
   const [toggleState, setToggleState] = useState<boolean>(false);
 
   const [valueState, setValueState] = useState<string>(() => {
-    const item = localStorage.getItem(LSKey.key);
-    return item !== null ? item : '';
+    const item: string | null = localStorage.getItem(LSKey.key);
+    const parsedItem = item ? JSON.parse(item) : null;
+    return parsedItem?.search || '';
   });
 
   const inputRef = useRef<HTMLInputElement | null>(null);
