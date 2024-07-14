@@ -41,7 +41,8 @@
       {
         "devDependencies": true,
         "optionalDependencies": true,
-        "peerDependencies": true
+        "peerDependencies": true,
+        "bundledDependencies": true
       }
     ],
     "react-compiler/react-compiler": "error",

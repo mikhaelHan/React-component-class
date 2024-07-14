@@ -12,7 +12,7 @@ const AppComponent: React.FC = () => {
       <Route path="/" element={<HomePageComponent />}>
         <Route path="frontpage" element={<DetailPageComponent />} />
       </Route>
-      <Route path="*" element={<NotFoundPageComponent />} />
+      <Route path="/*" element={<NotFoundPageComponent />} />
     </Routes>
   );
 };

@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", ".eslintrc.json"]
+  "include": ["vite.config.ts", "src", ".eslintrc.json"]
 }
