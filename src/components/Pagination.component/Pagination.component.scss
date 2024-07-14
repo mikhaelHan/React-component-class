@@ -1,0 +1,34 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1.2rem;
+
+  &__button {
+    cursor: pointer;
+    padding: 0.2rem 2rem;
+    border: 0.2rem solid #000000;
+    border-radius: 2rem;
+    background: #ffffff;
+    color: #000000;
+  }
+
+  &__button:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  &__button:disabled {
+    cursor: default;
+    background: #808080;
+    border: 0.2rem solid #808080;
+    color: #000000;
+  }
+
+  &__condition {
+    padding: 0.2rem 0.5rem;
+    border: 0.2rem solid #000000;
+    border-radius: 50%;
+  }
+}
