@@ -2,8 +2,11 @@ import { ISearchResult, ISearchItem } from '../models/Search.model';
 
 const PATH = `https://swapi.dev/api/people/`;
 
-const APIrequest = async (search: string): Promise<ISearchItem[] | null> => {
-  const url = `${PATH}?${search}`;
+export const APIListRequest = async (
+  search: string,
+): Promise<ISearchItem[] | null> => {
+  const url = `${PATH}${search}`;
+
   try {
     const result: Response = await fetch(url, {
       method: 'GET',
@@ -20,4 +23,21 @@ const APIrequest = async (search: string): Promise<ISearchItem[] | null> => {
   }
 };
 
-export default APIrequest;
+export const APIItemRequest = async (
+  search: string,
+): Promise<ISearchItem | null> => {
+  const url = `${PATH}${search}`;
+
+  try {
+    const response: Response = await fetch(url, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!response.ok) return null;
+
+    return await response.json();
+  } catch (error) {
+    return null;
+  }
+};

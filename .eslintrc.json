@@ -47,6 +47,7 @@
     "react-compiler/react-compiler": "error",
     "react/jsx-key": "off",
     "react/prefer-stateless-function": "off",
+    "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/naming-convention": "off",
     "class-methods-use-this": "off"
   },

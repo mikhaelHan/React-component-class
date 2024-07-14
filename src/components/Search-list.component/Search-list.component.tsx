@@ -17,6 +17,7 @@ const SearchListComponent: React.FC<{ data: ISearchItem[] }> = ({ data }) => {
               height={el.height}
               mass={el.mass}
               eye_color={el.eye_color}
+              url={el.url}
             />
           </li>
         );

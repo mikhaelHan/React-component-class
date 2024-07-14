@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import './Home-page.component.scss';
 
 import SearchComponent from '../../components/Search.component/Search.component';
 import { ISearchItem } from '../../models/Search.model';
-import APIrequest from '../../services/client-API.service';
+import { APIListRequest } from '../../services/client-API.service';
 import SearchListComponent from '../../components/Search-list.component/Search-list.component';
 import useLocalStorage from '../../services/useLocalStorage.service';
 import PaginationComponent from '../../components/Pagination.component/Pagination.component';
@@ -43,10 +44,10 @@ const HomePageComponent: React.FC = () => {
     let ApiRes: ISearchItem[] | null;
     if (qwery.search === '') {
       setState((prev) => ({ ...prev, isLoad: true, isPagination: true }));
-      ApiRes = await APIrequest(`page=${qwery.page}`);
+      ApiRes = await APIListRequest(`?page=${qwery.page}`);
       setState((prev) => ({ ...prev, data: ApiRes || [], isLoad: false }));
     } else {
-      ApiRes = await APIrequest(`search=${qwery.search}`);
+      ApiRes = await APIListRequest(`?search=${qwery.search}`);
       setState({ data: ApiRes || [], isLoad: false, isPagination: false });
     }
   };
@@ -61,12 +62,15 @@ const HomePageComponent: React.FC = () => {
       <div className="home-page-container home-page-container__search">
         <SearchComponent onSearchChange={changeStorageSearch} />
       </div>
-      <div className="home-page-container home-page-container__list">
-        {state.isLoad ? (
-          <p className="home-page-container__loading">Loading ...</p>
-        ) : (
-          <SearchListComponent data={state.data} />
-        )}
+      <div className="home-page-container home-page-container__list-box">
+        <div className="home-page-container__list">
+          {state.isLoad ? (
+            <p className="home-page-container__loading">Loading ...</p>
+          ) : (
+            <SearchListComponent data={state.data} />
+          )}
+        </div>
+        <Outlet />
       </div>
       {state.isPagination && (
         <div className="home-page-container home-page-container__pagination">
