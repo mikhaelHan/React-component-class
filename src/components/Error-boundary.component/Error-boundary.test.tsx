@@ -1,7 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { render } from '@testing-library/react';
 
-import '@testing-library/jest-dom';
-import React from 'react';
 import ErrorBoundaryComponent from './Error-boundary.component';
 
 test('renders child elements if there is no error', () => {

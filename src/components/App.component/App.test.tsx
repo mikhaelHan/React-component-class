@@ -1,9 +1,7 @@
-import '@testing-library/jest-dom';
+/* eslint-disable react/react-in-jsx-scope */
 import { expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-
-import React from 'react';
 
 import AppComponent from './App.component';
 
@@ -14,7 +12,6 @@ test('renders HomePageComponent for the root route', () => {
     </MemoryRouter>,
   );
 
-  // Checking that the HomePageComponent is rendered in the route '/'
   const homePageElement = screen.getByRole('heading', {
     name: 'Class component !',
   });
@@ -28,7 +25,6 @@ test('renders DetailPageComponent for /frontpage route', () => {
     </MemoryRouter>,
   );
 
-  // Checking that the DetailPageComponent is rendered at the '/frontpage' route
   const detailPageElement = screen.getByRole('link', { name: '← Back' });
   expect(detailPageElement).toBeInTheDocument();
 });
@@ -40,7 +36,6 @@ test('renders NotFoundPageComponent for an invalid route', () => {
     </MemoryRouter>,
   );
 
-  // Checking that the NotFoundPageComponent is rendered at the '/*' route
   const notFoundImg = screen.getByRole('img', { name: '404-page' });
   expect(notFoundImg).toBeInTheDocument();
 });
