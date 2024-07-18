@@ -50,7 +50,13 @@
     "react/prefer-stateless-function": "off",
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/naming-convention": "off",
-    "class-methods-use-this": "off"
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
