@@ -8,6 +8,7 @@ import { ISearchResult } from '../../models/Search.model';
 import SearchListComponent from '../../components/Search-list.component/Search-list.component';
 import useLocalStorage from '../../services/useLocalStorage.service';
 import PaginationComponent from '../../components/Pagination.component/Pagination.component';
+import DropDownComponent from '../../components/Drop-down.component/Drop-down.component';
 
 const HomePageComponent: React.FC = () => {
   const [searchQuery, setSearchQuery] = useLocalStorage();
@@ -38,6 +39,7 @@ const HomePageComponent: React.FC = () => {
           ) : (
             <SearchListComponent data={data?.results || []} />
           )}
+          <DropDownComponent />
         </div>
         <Outlet />
       </div>
