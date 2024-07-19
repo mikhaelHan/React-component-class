@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './Search-item.component.scss';
 import { ISearchItem } from '../../models/Search.model';
-import { addCard, removeCard } from '../../slices/counterSlice';
+import { addCard, removeCard } from '../../redux/counterSlice';
+import { IStore } from '../../models/redux.model';
 
 const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const { name, gender, height, mass, eye_color, url } = props;
@@ -13,16 +14,17 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const dispatch = useDispatch();
 
   const cardId: string = url.split('/').reverse()[1];
+  let changeable = useSelector((state: IStore) =>
+    state.checkedCards.IdCards.includes(cardId),
+  );
 
   const toValue =
     location.pathname === '/frontpage'
       ? '/'
       : `/frontpage?detail=${encodeURIComponent(cardId)}`;
 
-  let changeable = true;
-
   const handleChange = () => {
-    if (changeable) {
+    if (!changeable) {
       dispatch(
         addCard({
           id: cardId,
@@ -64,6 +66,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
       </Link>
       <div className="search-item-container__box-control">
         <input
+          checked={changeable}
           onChange={handleChange}
           className="search-item-container__control"
           type="checkbox"

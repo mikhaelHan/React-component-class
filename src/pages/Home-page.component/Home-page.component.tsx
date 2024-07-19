@@ -1,59 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-
+import { useGetCardsByParamQuery } from '../../redux/RtkApi';
 import './Home-page.component.scss';
 
 import SearchComponent from '../../components/Search.component/Search.component';
-import { ISearchItem } from '../../models/Search.model';
-import { APIListRequest } from '../../services/client-API.service';
+import { ISearchResult } from '../../models/Search.model';
 import SearchListComponent from '../../components/Search-list.component/Search-list.component';
 import useLocalStorage from '../../services/useLocalStorage.service';
 import PaginationComponent from '../../components/Pagination.component/Pagination.component';
-import { ILSValue } from '../../models/Local-storage.model';
 
 const HomePageComponent: React.FC = () => {
-  const [state, setState] = useState<{
-    data: ISearchItem[];
-    isLoad: boolean;
-    isPagination: boolean;
-  }>({
-    data: [],
-    isLoad: false,
-    isPagination: false,
-  });
-
   const [searchQuery, setSearchQuery] = useLocalStorage();
 
-  const changeStorageSearch = (value: string) => {
-    const item: ILSValue = {
-      search: value,
-      page: 1,
-    };
-    setSearchQuery(item);
-  };
+  const { data, isLoading } = useGetCardsByParamQuery<{
+    data: ISearchResult;
+    isLoading: boolean;
+  }>(searchQuery);
 
-  const changePaginationValue = (value: number) => {
-    const item: ILSValue = {
-      search: '',
-      page: value,
-    };
-    setSearchQuery(item);
-  };
-
-  const getData = async (qwery: ILSValue) => {
-    let ApiRes: ISearchItem[] | null;
-    if (qwery.search === '') {
-      setState((prev) => ({ ...prev, isLoad: true, isPagination: true }));
-      ApiRes = await APIListRequest(`?page=${qwery.page}`);
-      setState((prev) => ({ ...prev, data: ApiRes || [], isLoad: false }));
-    } else {
-      ApiRes = await APIListRequest(`?search=${qwery.search}`);
-      setState({ data: ApiRes || [], isLoad: false, isPagination: false });
-    }
+  const changeStorageSearch = (value: string | number) => {
+    setSearchQuery(value);
   };
 
   useEffect(() => {
-    getData(searchQuery);
+    changeStorageSearch(searchQuery);
   }, [searchQuery]);
 
   return (
@@ -64,17 +33,17 @@ const HomePageComponent: React.FC = () => {
       </div>
       <div className="home-page-container home-page-container__list-box">
         <div className="home-page-container__list">
-          {state.isLoad ? (
+          {isLoading ? (
             <p className="home-page-container__loading">Loading ...</p>
           ) : (
-            <SearchListComponent data={state.data} />
+            <SearchListComponent data={data?.results || []} />
           )}
         </div>
         <Outlet />
       </div>
-      {state.isPagination && (
+      {typeof searchQuery === 'number' && (
         <div className="home-page-container home-page-container__pagination">
-          <PaginationComponent onPaginationChange={changePaginationValue} />
+          <PaginationComponent onPaginationChange={changeStorageSearch} />
         </div>
       )}
     </div>

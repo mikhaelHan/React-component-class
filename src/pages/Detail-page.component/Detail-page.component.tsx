@@ -1,59 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { useGetCardDetailQuery } from '../../redux/RtkApi';
 
 import './Detail-page.component.scss';
 
 import img from '../../assets/images/star-wars.jpg';
 import { ISearchItem } from '../../models/Search.model';
-import { APIItemRequest } from '../../services/client-API.service';
 
 const DetailPageComponent: React.FC = () => {
-  const [dataState, setDataState] = useState<{
-    name: string;
-    gender: string;
-    height: string;
-    mass: string;
-    eye_color: string;
-  }>({
-    name: '',
-    gender: '',
-    height: '',
-    mass: '',
-    eye_color: '',
-  });
-
-  const [loadState, setLoadState] = useState<boolean>(false);
-
   const location = useLocation();
   const detail: string | null = new URLSearchParams(location.search).get(
     'detail',
   );
 
-  const getData = async (qwery: string) => {
-    setLoadState(true);
-
-    const ApiRes: ISearchItem | null = await APIItemRequest(`${qwery}`);
-    if (ApiRes) {
-      setDataState(() => ({
-        name: ApiRes.name,
-        gender: ApiRes.gender,
-        height: ApiRes.height,
-        mass: ApiRes.mass,
-        eye_color: ApiRes.eye_color,
-      }));
-      setLoadState(false);
-    }
-  };
-
-  useEffect(() => {
-    if (detail) {
-      getData(detail);
-    }
-  }, []);
+  const { data, isLoading } = useGetCardDetailQuery<{
+    data: ISearchItem;
+    isLoading: boolean;
+  }>(detail);
 
   return (
     <div className="detail-page-container">
-      {loadState ? (
+      {isLoading ? (
         <p className="detail-page-container__loading">Loading ...</p>
       ) : (
         <div className="detail-page-container__box">
@@ -64,27 +31,27 @@ const DetailPageComponent: React.FC = () => {
               alt="star-wars"
             />
           </div>
-          <p className="detail-page-container__title">{dataState.name}</p>
+          <p className="detail-page-container__title">{data.name}</p>
           <div
-            style={{ border: `0.2rem solid ${dataState.eye_color}` }}
+            style={{ border: `0.2rem solid ${data.eye_color}` }}
             className="detail-page-container__info"
           >
             <p className="detail-page-container__item">
               Gender:{' '}
               <span className="detail-page-container__item-bold">
-                {dataState.gender}
+                {data.gender}
               </span>
             </p>
             <p className="detail-page-container__item">
               Height:{' '}
               <span className="detail-page-container__item-bold">
-                {dataState.height}
+                {data.height}
               </span>
             </p>
             <p className="detail-page-container__item">
               Mass:{' '}
               <span className="detail-page-container__item-bold">
-                {dataState.mass}
+                {data.mass}
               </span>
             </p>
           </div>

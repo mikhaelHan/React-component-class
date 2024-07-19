@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import { ILSValue, LSKey } from '../models/Local-storage.model';
+import KEY from '../models/Local-storage.model';
 
 const useLocalStorage = () => {
-  const [storeValue, setStoreValue] = useState<ILSValue>(() => {
-    const item: string | null = localStorage.getItem(LSKey.key);
+  const [storeValue, setStoreValue] = useState<string | number>(() => {
+    const item: string | null = localStorage.getItem(KEY);
 
-    if (item !== null) {
-      const parsedItem = JSON.parse(item);
-      if ('search' in parsedItem && 'page' in parsedItem) {
-        return parsedItem as ILSValue;
-      }
+    if (item !== null && item !== '') {
+      const parsedItem: string | number = JSON.parse(item);
+      return parsedItem;
     }
 
-    const newItem: ILSValue = { search: '', page: 1 };
-    localStorage.setItem(LSKey.key, JSON.stringify(newItem));
-    return newItem;
+    localStorage.setItem(KEY, JSON.stringify(1));
+    return 1;
   });
 
-  const changeValue = (value: ILSValue) => {
-    localStorage.setItem(LSKey.key, JSON.stringify(value));
-    setStoreValue(value);
+  const changeValue = (value: string | number) => {
+    if (value === '') {
+      localStorage.setItem(KEY, JSON.stringify(1));
+      setStoreValue(1);
+    } else {
+      localStorage.setItem(KEY, JSON.stringify(value));
+      setStoreValue(value);
+    }
   };
 
   return [storeValue, changeValue] as const;

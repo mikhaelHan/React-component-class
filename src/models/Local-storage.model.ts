@@ -1,8 +1,2 @@
-export enum LSKey {
-  key = 'React-routing-tests',
-}
-
-export interface ILSValue {
-  search: string;
-  page: number;
-}
+const KEY = 'State-management';
+export default KEY;

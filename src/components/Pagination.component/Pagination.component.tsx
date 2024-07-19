@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
 import './Pagination.component.scss';
-import { LSKey } from '../../models/Local-storage.model';
+import KEY from '../../models/Local-storage.model';
 
 const PaginationComponent: React.FC<{
   onPaginationChange: (paginationValue: number) => void;
 }> = (props) => {
   const [paginationState, setPaginationState] = useState<number>(() => {
-    const item: string | null = localStorage.getItem(LSKey.key);
-    const parsedItem = item ? JSON.parse(item) : null;
-    return parsedItem?.page || 1;
+    const item: string | null = localStorage.getItem(KEY);
+    if (item && typeof JSON.parse(item) === 'number') {
+      return JSON.parse(item);
+    }
+    return 1;
   });
 
   const changePagination = (state: boolean) => {
