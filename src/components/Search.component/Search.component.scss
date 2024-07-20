@@ -9,6 +9,12 @@
     gap: 2rem;
   }
 
+  &__button-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
   &__input,
   &__button {
     padding: 0.5rem 1rem;
@@ -22,14 +28,9 @@
     padding: 0.5rem 3rem;
     font-size: 1.5rem;
     border: 0.1rem solid #000000;
-    color: #000000;
-    background: #ffffff;
     transition-duration: 0.3s;
   }
 
-  &__button:hover {
-    border: 0.1rem solid #ffffff;
-    color: #ffffff;
-    background: #000000;
-  }
+
+
 }

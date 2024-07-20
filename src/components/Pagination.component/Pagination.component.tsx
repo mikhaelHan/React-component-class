@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import './Pagination.component.scss';
 import KEY from '../../models/Local-storage.model';
+import { ThemeContext } from '../../services/Theme.provider';
 
 const PaginationComponent: React.FC<{
   onPaginationChange: (paginationValue: number) => void;
@@ -13,6 +14,8 @@ const PaginationComponent: React.FC<{
     }
     return 1;
   });
+
+  const { isDarkTheme } = useContext(ThemeContext);
 
   const changePagination = (state: boolean) => {
     const { onPaginationChange } = props;
@@ -31,7 +34,7 @@ const PaginationComponent: React.FC<{
         onClick={() => changePagination(false)}
         disabled={paginationState <= 1}
         type="button"
-        className="pagination-container__button pagination-container__prev"
+        className={`pagination-container__button ${isDarkTheme ? 'btn-dark' : 'btn-light'}`}
       >
         prev
       </button>
@@ -40,7 +43,7 @@ const PaginationComponent: React.FC<{
         onClick={() => changePagination(true)}
         disabled={paginationState >= 9}
         type="button"
-        className="pagination-container__button pagination-container__next"
+        className={`pagination-container__button ${isDarkTheme ? 'btn-dark' : 'btn-light'}`}
       >
         next
       </button>

@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 
 import './Search.component.scss';
 import KEY from '../../models/Local-storage.model';
+import { ThemeContext } from '../../services/Theme.provider';
 
 const SearchComponent: React.FC<{
   onSearchChange: (searchValue: string) => void;
@@ -18,6 +19,7 @@ const SearchComponent: React.FC<{
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const prevValue = useRef<string>('');
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     prevValue.current = valueState;
@@ -45,23 +47,32 @@ const SearchComponent: React.FC<{
         <input
           ref={inputRef}
           placeholder="Search..."
-          className="search-container__input"
+          className={`search-container__input ${isDarkTheme ? 'input-dark' : 'input-light'}`}
           type="search"
           size={30}
         />
         <input
           value="Search"
           type="submit"
-          className="search-container__button"
+          className={`search-container__button ${isDarkTheme ? 'btn-dark' : 'btn-light'}`}
         />
       </form>
-      <button
-        onClick={throwError}
-        type="button"
-        className="search-container__button"
-      >
-        Error
-      </button>
+      <div className="search-container__button-box">
+        <button
+          onClick={toggleTheme}
+          type="button"
+          className={`search-container__button ${isDarkTheme ? 'btn-dark' : 'btn-light'}`}
+        >
+          Change Theme
+        </button>
+        <button
+          onClick={throwError}
+          type="button"
+          className={`search-container__button ${isDarkTheme ? 'btn-dark' : 'btn-light'}`}
+        >
+          Error
+        </button>
+      </div>
     </div>
   );
 };
