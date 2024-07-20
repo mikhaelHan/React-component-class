@@ -1,20 +1,17 @@
-import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CheckedCard, CheckedCardState } from '../models/redux.model';
 
-import { ICheckedCard } from '../models/redux.model';
+const initialState: CheckedCardState = {
+  cards: [],
+  IdCards: [],
+};
 
 const cardSlice = createSlice({
   name: 'checkedCards',
-  initialState: {
-    cards: [] as ICheckedCard[],
-    IdCards: [] as string[],
-  },
+  initialState,
 
   reducers: {
-    addCard(
-      state: Draft<{ cards: ICheckedCard[]; IdCards: string[] }>,
-      action: PayloadAction<ICheckedCard>,
-    ) {
-      // if (!state.cards.length) console.log('open');
+    addCard(state, action: PayloadAction<CheckedCard>) {
       return {
         ...state,
         cards: [...state.cards, action.payload],
@@ -22,17 +19,13 @@ const cardSlice = createSlice({
       };
     },
 
-    removeCard(
-      state: Draft<{ cards: ICheckedCard[]; IdCards: string[] }>,
-      action: PayloadAction<string>,
-    ) {
+    removeCard(state, action: PayloadAction<string>) {
       return {
         cards: state.cards.filter(
-          (card: ICheckedCard) => card.id !== action.payload,
+          (card: CheckedCard) => card.id !== action.payload,
         ),
         IdCards: state.IdCards.filter((id: string) => id !== action.payload),
       };
-      // if (!state.cards.length) console.log('close');
     },
 
     removeAllCards() {
@@ -45,5 +38,4 @@ const cardSlice = createSlice({
 });
 
 export const { addCard, removeCard, removeAllCards } = cardSlice.actions;
-
 export default cardSlice.reducer;

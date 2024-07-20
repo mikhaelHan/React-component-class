@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import './Search-item.component.scss';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { ISearchItem } from '../../models/Search.model';
 import { addCard, removeCard } from '../../redux/counterSlice';
-import { IStore } from '../../models/redux.model';
+
+import './Search-item.component.scss';
 
 const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const { name, gender, height, mass, eye_color, url } = props;
 
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const cardId: string = url.split('/').reverse()[1];
-  let changeable = useSelector((state: IStore) =>
+  let changeable = useAppSelector((state) =>
     state.checkedCards.IdCards.includes(cardId),
   );
 

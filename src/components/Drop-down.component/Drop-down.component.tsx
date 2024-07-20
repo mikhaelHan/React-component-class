@@ -1,18 +1,17 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import './Drop-down.component.scss';
-import { IStore } from '../../models/redux.model';
+import { useAppSelector, useAppDispatch } from '../../redux/hook';
 import { removeAllCards } from '../../redux/counterSlice';
 
-const DropDownComponent: React.FC = () => {
-  const dispatch = useDispatch();
+import './Drop-down.component.scss';
 
-  const visible = useSelector(
-    (state: IStore) => !!state.checkedCards.IdCards.length,
+const DropDownComponent: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const visible = useAppSelector(
+    (state) => !!state.checkedCards.IdCards.length,
   );
-  const condition = useSelector(
-    (state: IStore) => state.checkedCards.IdCards.length,
+  const condition = useAppSelector(
+    (state) => state.checkedCards.IdCards.length,
   );
 
   return (

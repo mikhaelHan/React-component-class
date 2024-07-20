@@ -1,18 +1,17 @@
-import { configureStore, Reducer } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { cardsApi } from './RtkApi';
 import cardReducer from './counterSlice';
-import { ICheckedCard } from '../models/redux.model';
 
 const store = configureStore({
   reducer: {
     [cardsApi.reducerPath]: cardsApi.reducer,
-    checkedCards: cardReducer as Reducer<{
-      cards: ICheckedCard[];
-      IdCards: string[];
-    }>,
+    checkedCards: cardReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(cardsApi.middleware),
 });
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
