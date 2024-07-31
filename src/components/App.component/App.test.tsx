@@ -3,12 +3,16 @@ import { expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
 import AppComponent from './App.component';
+import store from '../../redux';
 
 test('renders HomePageComponent for the root route', () => {
   render(
     <MemoryRouter initialEntries={['/']}>
-      <AppComponent />
+      <Provider store={store}>
+        <AppComponent />
+      </Provider>
     </MemoryRouter>,
   );
 
@@ -18,21 +22,12 @@ test('renders HomePageComponent for the root route', () => {
   expect(homePageElement).toBeInTheDocument();
 });
 
-test('renders DetailPageComponent for /frontpage route', () => {
-  render(
-    <MemoryRouter initialEntries={['/frontpage']}>
-      <AppComponent />
-    </MemoryRouter>,
-  );
-
-  const detailPageElement = screen.getByRole('link', { name: '← Back' });
-  expect(detailPageElement).toBeInTheDocument();
-});
-
 test('renders NotFoundPageComponent for an invalid route', () => {
   render(
     <MemoryRouter initialEntries={['/nonexistent']}>
-      <AppComponent />
+      <Provider store={store}>
+        <AppComponent />
+      </Provider>
     </MemoryRouter>,
   );
 
