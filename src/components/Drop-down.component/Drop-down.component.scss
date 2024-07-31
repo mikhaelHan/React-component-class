@@ -1,0 +1,61 @@
+.drop-down-container {
+  position: fixed;
+  left: 4rem;
+  bottom: 6rem;
+  background: rgba(255, 0, 0, 0.5);
+  border-radius: 1.4rem;
+  width: 30%;
+  height: 0rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1.4rem;
+  transition: all 0.5s ease-in-out;
+
+  &__button {
+    cursor: pointer;
+    padding: 0.2rem 2rem;
+    border: 0.2rem solid rgba(0, 0, 0, 0.4);
+    border-radius: 2rem;
+  }
+
+  &__button.light {
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  &__button.light:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  &__button.dark {
+    background: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.4);
+  }
+  &__button.dark:hover {
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__condition {
+    padding: 0.2rem 1rem;
+    border: 0.2rem solid rgba(0, 0, 0, 0.4);
+    border-radius: 2rem;
+  }
+
+  &__condition.light {
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__condition.dark {
+    background: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.drop-down-container.active {
+  height: 5rem;
+}

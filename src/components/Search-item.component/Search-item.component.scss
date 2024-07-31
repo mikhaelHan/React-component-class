@@ -1,0 +1,44 @@
+.search-item-container {
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+  display: flex;
+
+  &__box-info {
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1 0 92%;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-style: oblique;
+    font-weight: 600;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2rem;
+    font-style: oblique;
+    font-weight: 500;
+  }
+
+  &__item-bold {
+    font-weight: 900;
+  }
+
+  &__box-control {
+    flex: 1 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__control {
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 0.3rem 0.1rem #000000;
+  }
+}
