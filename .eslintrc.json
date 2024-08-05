@@ -4,17 +4,18 @@
     "es2021": true
   },
   "extends": [
-    "airbnb",
+    "next/core-web-vitals",
+    // "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
+    // "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.app.json", "tsconfig.node.json"],
+    "project": ["./tsconfig.json"],
     "ecmaFeatures": {
       "jsx": true
     },
