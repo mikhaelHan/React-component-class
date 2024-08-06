@@ -3,24 +3,31 @@ import KEY from '../models/Local-storage.model';
 
 const useLocalStorage = () => {
   const [storeValue, setStoreValue] = useState<string | number>(() => {
-    const item: string | null = localStorage.getItem(KEY);
+    const item: string | null =
+      typeof window !== 'undefined' && localStorage
+        ? localStorage.getItem(KEY)
+        : null;
 
     if (item !== null && item !== '') {
       const parsedItem: string | number = JSON.parse(item);
       return parsedItem;
     }
+    if (typeof window !== 'undefined' && localStorage) {
+      localStorage.setItem(KEY, JSON.stringify(1));
+    }
 
-    localStorage.setItem(KEY, JSON.stringify(1));
     return 1;
   });
 
   const changeValue = (value: string | number) => {
     if (value === '') {
-      localStorage.setItem(KEY, JSON.stringify(1));
       setStoreValue(1);
+      if (typeof window !== 'undefined' && localStorage)
+        localStorage.setItem(KEY, JSON.stringify(1));
     } else {
-      localStorage.setItem(KEY, JSON.stringify(value));
       setStoreValue(value);
+      if (typeof window !== 'undefined' && localStorage)
+        localStorage.setItem(KEY, JSON.stringify(value));
     }
   };
 

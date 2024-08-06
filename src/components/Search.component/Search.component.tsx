@@ -10,7 +10,10 @@ const SearchComponent: React.FC<{
   const [toggleState, setToggleState] = useState<boolean>(false);
 
   const [valueState, setValueState] = useState<string>(() => {
-    const item: string | null = localStorage.getItem(KEY);
+    const item: string | null =
+      typeof window !== 'undefined' && localStorage
+        ? localStorage.getItem(KEY)
+        : null;
     if (item !== null && typeof JSON.parse(item) === 'string') {
       return JSON.parse(item);
     }

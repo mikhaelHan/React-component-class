@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+// import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { ISearchItem } from '../../models/Search.model';
 import { addCard, removeCard } from '../../redux/counterSlice';
@@ -9,7 +9,7 @@ import './Search-item.component.scss';
 const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const { name, gender, height, mass, eye_color, url } = props;
 
-  const location = useLocation();
+  // const location = useLocation();
   const dispatch = useAppDispatch();
 
   const cardId: string = url.split('/').reverse()[1];
@@ -17,10 +17,10 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
     state.checkedCards.IdCards.includes(cardId),
   );
 
-  const toValue =
-    location.pathname === '/frontpage'
-      ? '/'
-      : `/frontpage?detail=${encodeURIComponent(cardId)}`;
+  // const toValue =
+  //   location.pathname === '/frontpage'
+  //     ? '/'
+  //     : `/frontpage?detail=${encodeURIComponent(cardId)}`;
 
   const handleChange = () => {
     if (!changeable) {
@@ -46,7 +46,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
       className="search-item-container"
       style={{ border: `0.2rem solid ${eye_color}` }}
     >
-      <Link className="search-item-container__box-info" to={toValue}>
+      <div className="search-item-container__box-info">
         <h3 className="search-item-container__title">{name}</h3>
         <div className="search-item-container__info">
           <p className="search-item-container__item">
@@ -62,7 +62,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
             <span className="search-item-container__item-bold">{mass}</span>
           </p>
         </div>
-      </Link>
+      </div>
       <div className="search-item-container__box-control">
         <input
           checked={changeable}

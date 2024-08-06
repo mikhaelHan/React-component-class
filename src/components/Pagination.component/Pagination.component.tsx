@@ -8,7 +8,10 @@ const PaginationComponent: React.FC<{
   onPaginationChange: (paginationValue: number) => void;
 }> = (props) => {
   const [paginationState, setPaginationState] = useState<number>(() => {
-    const item: string | null = localStorage.getItem(KEY);
+    const item: string | null =
+      typeof window !== 'undefined' && localStorage
+        ? localStorage.getItem(KEY)
+        : null;
     if (item && typeof JSON.parse(item) === 'number') {
       return JSON.parse(item);
     }

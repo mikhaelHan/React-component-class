@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
-import { Routes, Route } from 'react-router-dom';
 
 import './App.component.scss';
 import HomePageComponent from '../../App-pages/Home-page.component/Home-page.component';
-import NotFoundPageComponent from '../../App-pages/Not-found-page.component/Not-found-page.component';
-import DetailPageComponent from '../../App-pages/Detail-page.component/Detail-page.component';
+
 import { ThemeContext } from '../../services/Theme.provider';
 
 const AppComponent: React.FC = () => {
@@ -14,12 +12,7 @@ const AppComponent: React.FC = () => {
       className={`app-container ${isDarkTheme ? 'container-dark' : 'container-light'}`}
     >
       <div className="app-container__box">
-        <Routes>
-          <Route path="/" element={<HomePageComponent />}>
-            <Route path="frontpage" element={<DetailPageComponent />} />
-          </Route>
-          <Route path="/*" element={<NotFoundPageComponent />} />
-        </Routes>
+        <HomePageComponent />
       </div>
     </div>
   );
