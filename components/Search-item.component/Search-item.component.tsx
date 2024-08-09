@@ -13,9 +13,10 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
     state.checkedCards.IdCards.includes(cardId),
   );
 
-  const toPath = `/frontpage?detail=${encodeURIComponent(cardId)}`;
+  const toPath = `/frontpage&detail=${encodeURIComponent(cardId)}`;
 
-  const handleChange = () => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     if (!changeable) {
       dispatch(
         addCard({
@@ -57,7 +58,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
       <div className="search-item-container__box-control">
         <input
           checked={changeable}
-          onChange={handleChange}
+          onChange={(event) => handleChange(event)}
           className="search-item-container__control"
           type="checkbox"
           name={name}

@@ -5,16 +5,16 @@ import img from '../../public/star-wars.jpg';
 import { useGetCardDetailQuery } from '@/redux/RtkApi';
 import { ISearchItem } from '@/models/Search.model';
 
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 const DetailPageComponent: React.FC = () => {
-  const router = useRouter();
-  const path = router.asPath;
-  const detail = path.split('=').reverse();
+  const path = usePathname();
+  const detail = path ? path.toString().split('=').reverse()[0] : '1';
+
   const { data, isLoading } = useGetCardDetailQuery<{
     data: ISearchItem;
     isLoading: boolean;
-  }>(detail[0]);
+  }>(detail);
 
   return (
     <div className="detail-page-container">
@@ -29,27 +29,27 @@ const DetailPageComponent: React.FC = () => {
               alt="star-wars"
             />
           </div>
-          <p className="detail-page-container__title">{data.name}</p>
+          <h3 className="detail-page-container__title">{data?.name}</h3>
           <div
-            style={{ border: `0.2rem solid ${data.eye_color}` }}
+            style={{ border: `0.2rem solid ${data?.eye_color}` }}
             className="detail-page-container__info"
           >
             <p className="detail-page-container__item">
               Gender:{' '}
               <span className="detail-page-container__item-bold">
-                {data.gender}
+                {data?.gender}
               </span>
             </p>
             <p className="detail-page-container__item">
               Height:{' '}
               <span className="detail-page-container__item-bold">
-                {data.height}
+                {data?.height}
               </span>
             </p>
             <p className="detail-page-container__item">
               Mass:{' '}
               <span className="detail-page-container__item-bold">
-                {data.mass}
+                {data?.mass}
               </span>
             </p>
           </div>

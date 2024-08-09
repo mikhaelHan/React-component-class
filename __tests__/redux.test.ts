@@ -1,9 +1,11 @@
-import { CheckedCard, CheckedCardState } from '../models/redux.model';
+import { CheckedCard, CheckedCardState } from '@/models/redux.model';
+import '@testing-library/jest-dom';
+
 import cardReducer, {
   addCard,
   removeCard,
   removeAllCards,
-} from './counterSlice';
+} from '@/redux/counterSlice';
 
 describe('cardSlice reducers', () => {
   it('should add a card', () => {
