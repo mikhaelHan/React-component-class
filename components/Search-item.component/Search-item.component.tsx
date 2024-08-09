@@ -1,7 +1,9 @@
+'use client';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { ISearchItem } from '@/models/Search.model';
 import { addCard, removeCard } from '@/redux/counterSlice';
+import { usePathname } from 'next/navigation';
 
 const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const { name, gender, height, mass, eye_color, url } = props;
@@ -13,10 +15,11 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
     state.checkedCards.IdCards.includes(cardId),
   );
 
-  const toPath = `/frontpage&detail=${encodeURIComponent(cardId)}`;
+  const path = usePathname();
+  const toPath =
+    path === '/' ? `/frontpage&detail=${encodeURIComponent(cardId)}` : '/';
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
+  const handleChange = () => {
     if (!changeable) {
       dispatch(
         addCard({
@@ -58,7 +61,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
       <div className="search-item-container__box-control">
         <input
           checked={changeable}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
           className="search-item-container__control"
           type="checkbox"
           name={name}

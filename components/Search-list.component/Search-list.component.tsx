@@ -1,10 +1,9 @@
 import { ISearchItem } from '@/models/Search.model';
 import SearchItemComponent from '../Search-item.component/Search-item.component';
-import Link from 'next/link';
 
 const SearchListComponent: React.FC<{ data: ISearchItem[] }> = ({ data }) => {
   return (
-    <Link href="/" className="search-list-container">
+    <div className="search-list-container">
       <ul className="search-list-container__wrapper">
         {data.map((el: ISearchItem) => {
           return (
@@ -21,7 +20,7 @@ const SearchListComponent: React.FC<{ data: ISearchItem[] }> = ({ data }) => {
           );
         })}
       </ul>
-    </Link>
+    </div>
   );
 };
 
