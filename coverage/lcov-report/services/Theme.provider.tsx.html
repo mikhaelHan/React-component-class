@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.27% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.27% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,21 +104,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { createContext, ReactNode, useState, useMemo } from 'react';
@@ -132,22 +132,22 @@ export const ThemeContext = createContext({
   toggleTheme: <span class="fstat-no" title="function not covered" >() =&gt; {},</span>
 });
 &nbsp;
-export const ThemeProvider: React.FC&lt;ThemeProviderProps&gt; = <span class="fstat-no" title="function not covered" >({ children }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const [isDarkTheme, setIsDarkTheme] = useState(false);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const toggleTheme = () =&gt; setIsDarkTheme((prevTheme) =&gt; !prevTheme);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const contextValue = useMemo(</span>
-<span class="cstat-no" title="statement not covered" >    () =&gt; ({ isDarkTheme, toggleTheme }),</span>
-<span class="cstat-no" title="statement not covered" >    [isDarkTheme],</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;ThemeContext.Provider value={contextValue}&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {children}</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/ThemeContext.Provider&gt;</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+export const ThemeProvider: React.FC&lt;ThemeProviderProps&gt; = ({ children }) =&gt; {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+&nbsp;
+  const toggleTheme = <span class="fstat-no" title="function not covered" >() =&gt; setIsDarkTheme((prevTheme) =&gt; !prevTheme);</span>
+&nbsp;
+  const contextValue = useMemo(
+    () =&gt; ({ isDarkTheme, toggleTheme }),
+    [isDarkTheme],
+  );
+&nbsp;
+  return (
+    &lt;ThemeContext.Provider value={contextValue}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+};
 &nbsp;
 export default ThemeProvider;
 &nbsp;</pre></td></tr></table></pre>
@@ -157,7 +157,7 @@ export default ThemeProvider;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-09T10:49:16.850Z
+                at 2024-08-09T23:58:46.741Z
             </div>
         <script src="../prettify.js"></script>
         <script>
