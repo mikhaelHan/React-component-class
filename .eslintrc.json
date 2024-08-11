@@ -1,26 +1,81 @@
 {
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "browser": true,
-    "es2021": true
+    "commonjs": true,
+    "es6": true
   },
+  "ignorePatterns": ["!**/.server", "!**/.client"],
   "extends": [
-    "next/core-web-vitals",
+    "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": ["./tsconfig.json"],
-    "ecmaFeatures": {
-      "jsx": true
+  "overrides": [
+    {
+      "files": ["**/*.{js,jsx,ts,tsx}"],
+      "plugins": ["react", "jsx-a11y"],
+      "extends": [
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:react-hooks/recommended",
+        "plugin:jsx-a11y/recommended"
+      ],
+      "settings": {
+        "react": {
+          "version": "detect"
+        },
+        "formComponents": ["Form"],
+        "linkComponents": [
+          { "name": "Link", "linkAttribute": "to" },
+          { "name": "NavLink", "linkAttribute": "to" }
+        ],
+        "import/resolver": {
+          "typescript": {}
+        }
+      }
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["@typescript-eslint", "react", "react-compiler", "prettier"],
+    {
+      "files": ["**/*.{ts,tsx}"],
+      "plugins": ["@typescript-eslint", "import"],
+      "parser": "@typescript-eslint/parser",
+      "settings": {
+        "import/internal-regex": "^~/",
+        "import/resolver": {
+          "node": {
+            "extensions": [".ts", ".tsx"]
+          },
+          "typescript": {
+            "alwaysTryTypes": true
+          }
+        }
+      },
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript"
+      ]
+    },
+    {
+      "files": [".eslintrc.cjs"],
+      "env": {
+        "node": true
+      }
+    }
+  ],
   "rules": {
     "no-console": "warn",
     "linebreak-style": "off",
@@ -35,16 +90,7 @@
       "error",
       { "namedComponents": "arrow-function" }
     ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true,
-        "optionalDependencies": true,
-        "peerDependencies": true,
-        "bundledDependencies": true
-      }
-    ],
-    "react-compiler/react-compiler": "error",
+    "import/no-extraneous-dependencies": "off",
     "react/jsx-key": "off",
     "react/prefer-stateless-function": "off",
     "react-hooks/exhaustive-deps": "off",
@@ -56,10 +102,5 @@
         "ignorePropertyModificationsFor": ["state"]
       }
     ]
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
   }
 }
