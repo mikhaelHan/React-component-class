@@ -1,9 +1,7 @@
-'use client';
-import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { ISearchItem } from '@/models/Search.model';
-import { addCard, removeCard } from '@/redux/counterSlice';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from '@remix-run/react';
+import { ISearchItem } from 'models/Search.model';
+import { addCard, removeCard } from 'redux/counterSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hook';
 
 const SearchItemComponent: React.FC<ISearchItem> = (props) => {
   const { name, gender, height, mass, eye_color, url } = props;
@@ -15,9 +13,11 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
     state.checkedCards.IdCards.includes(cardId),
   );
 
-  const path = usePathname();
+  const location = useLocation();
   const toPath =
-    path === '/' ? `/frontpage&detail=${encodeURIComponent(cardId)}` : '/';
+    location.pathname === '/'
+      ? `/frontpage&detail=${encodeURIComponent(cardId)}`
+      : '/';
 
   const handleChange = () => {
     if (!changeable) {
@@ -41,7 +41,7 @@ const SearchItemComponent: React.FC<ISearchItem> = (props) => {
       className="search-item-container"
       style={{ border: `0.2rem solid ${eye_color}` }}
     >
-      <Link href={toPath} className="search-item-container__box-info">
+      <Link to={toPath} className="search-item-container__box-info">
         <h3 className="search-item-container__title">{name}</h3>
         <div className="search-item-container__info">
           <p className="search-item-container__item">

@@ -1,4 +1,4 @@
-import { ISearchItem } from '@/models/Search.model';
+import { ISearchItem } from 'models/Search.model';
 import SearchItemComponent from '../Search-item.component/Search-item.component';
 
 const SearchListComponent: React.FC<{ data: ISearchItem[] }> = ({ data }) => {

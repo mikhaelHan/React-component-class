@@ -1,9 +1,9 @@
-import { CheckedCard } from '@/models/redux.model';
-import { removeAllCards } from '@/redux/counterSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { ThemeContext } from '@/services/Theme.provider';
+import { CheckedCard } from 'models/redux.model';
 import Papa from 'papaparse';
 import { useContext } from 'react';
+import { removeAllCards } from 'redux/counterSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hook';
+import { ThemeContext } from 'services/Theme.provider';
 
 const DropDownComponent: React.FC = () => {
   const dispatch = useAppDispatch();

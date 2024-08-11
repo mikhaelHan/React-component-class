@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import img from '../../public/404-page_logo.png';
 
 const NotFoundPageComponent: React.FC = () => {
@@ -6,7 +5,7 @@ const NotFoundPageComponent: React.FC = () => {
     <div className="not-found-container">
       <div className="not-found-container__box">
         <div className="not-found-container__logo">
-          <Image
+          <img
             src={img}
             alt="404-page"
             className="not-found-container__logo_img"

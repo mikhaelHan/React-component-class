@@ -1,16 +1,11 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-
+import { useLocation, Link } from '@remix-run/react';
+import { ISearchItem } from 'models/Search.model';
+import { useGetCardDetailQuery } from 'redux/RtkApi';
 import img from '../../public/star-wars.jpg';
-import { useGetCardDetailQuery } from '@/redux/RtkApi';
-import { ISearchItem } from '@/models/Search.model';
-
-import { usePathname } from 'next/navigation';
 
 const DetailPageComponent: React.FC = () => {
-  const path = usePathname();
-  const detail = path ? path.toString().split('=').reverse()[0] : '1';
+  const location = useLocation();
+  const detail = location.pathname.toString().split('=').reverse()[0];
 
   const { data, isLoading } = useGetCardDetailQuery<{
     data: ISearchItem;
@@ -24,7 +19,7 @@ const DetailPageComponent: React.FC = () => {
       ) : (
         <div className="detail-page-container__box">
           <div className="detail-page-container__img">
-            <Image
+            <img
               className="detail-page-container__imgage"
               src={img}
               alt="star-wars"
@@ -55,7 +50,7 @@ const DetailPageComponent: React.FC = () => {
             </p>
           </div>
           <p className="detail-page-container__link">
-            <Link href="/">← Back</Link>
+            <Link to="/">← Back</Link>
           </p>
         </div>
       )}

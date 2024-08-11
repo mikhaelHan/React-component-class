@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => {
 };
 
 const Index = () => {
-  return <h1>hello</h1>;
+  return <></>;
 };
 
 export default Index;

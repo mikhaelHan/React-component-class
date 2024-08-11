@@ -52,6 +52,9 @@
       "files": ["**/*.{ts,tsx}"],
       "plugins": ["@typescript-eslint", "import"],
       "parser": "@typescript-eslint/parser",
+      "rules": {
+        "react/prop-types": 0
+      },
       "settings": {
         "import/internal-regex": "^~/",
         "import/resolver": {
@@ -101,6 +104,7 @@
         "props": true,
         "ignorePropertyModificationsFor": ["state"]
       }
-    ]
+    ],
+    "react/jsx-no-useless-fragment": "off"
   }
 }

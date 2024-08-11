@@ -1,8 +1,8 @@
-import { ISearchResult } from '@/models/Search.model';
-import { useGetCardsByParamQuery } from '@/redux/RtkApi';
-import { ThemeContext } from '@/services/Theme.provider';
-import useLocalStorage from '@/services/useLocalStorage.service';
 import { useContext, useEffect } from 'react';
+import { ThemeContext } from 'services/Theme.provider';
+import { ISearchResult } from 'models/Search.model';
+import useLocalStorage from 'services/useLocalStorage.service';
+import { useGetCardsByParamQuery } from 'redux/RtkApi';
 import SearchComponent from '../Search.component/Search.component';
 import SearchListComponent from '../Search-list.component/Search-list.component';
 import DropDownComponent from '../Drop-down.component/Drop-down.component';
@@ -26,6 +26,7 @@ const HomePageComponent: React.FC<{
 
   useEffect(() => {
     changeStorageSearch(searchQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   return (

@@ -1,6 +1,6 @@
-import KEY from '@/models/Local-storage.model';
-import { ThemeContext } from '@/services/Theme.provider';
+import KEY from 'models/Local-storage.model';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { ThemeContext } from 'services/Theme.provider';
 
 const SearchComponent: React.FC<{
   onSearchChange: (searchValue: string) => void;

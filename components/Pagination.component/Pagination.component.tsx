@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ThemeContext } from '@/services/Theme.provider';
+import { ThemeContext } from 'services/Theme.provider';
 
 const PaginationComponent: React.FC<{
   onPaginationChange: (paginationValue: number) => void;

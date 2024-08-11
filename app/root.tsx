@@ -7,6 +7,7 @@ import {
 } from '@remix-run/react';
 
 import '../styles/globals.scss';
+import LayoutComponent from 'components/Layout.component/Layout.component';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -27,7 +28,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => {
-  return <Outlet />;
+  return (
+    <LayoutComponent>
+      <Outlet />
+    </LayoutComponent>
+  );
 };
 
 export default App;
