@@ -7,6 +7,7 @@ import eslintReactCompiler from 'eslint-plugin-react-compiler';
 import prettierPlugin from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import parser from '@typescript-eslint/parser';
+import eslintImport from 'eslint-plugin-import';
 
 /**@type {import ('eslint').Linter.FlatConfig[]} */
 export default [
@@ -16,6 +17,7 @@ export default [
       react: eslintReact,
       'react-refresh': eslintReactRefresh,
       'react-compiler': eslintReactCompiler,
+      import: eslintImport,
       prettier: prettierPlugin,
     },
   },
@@ -41,7 +43,9 @@ export default [
   },
   {
     files: ['**/*.{js,ts,tsx}'],
-    settings: { react: { version: 'detect' } },
+    settings: {
+      react: { version: 'detect' },
+    },
     rules: {
       ...eslintConfigPrettier.rules,
       'prefer-const': 'error',
@@ -50,8 +54,27 @@ export default [
         'error',
         { namedComponents: 'arrow-function' },
       ],
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+        { usePrettierrc: true },
+      ],
+      'import/no-extraneous-dependencies': [
+        'error',
+        {
+          devDependencies: true,
+          optionalDependencies: true,
+          peerDependencies: true,
+          bundledDependencies: true,
+        },
+      ],
       'react-compiler/react-compiler': 'error',
       'linebreak-style': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react/prefer-stateless-function': 'off',
+      'react/jsx-key': 'off',
     },
   },
 ];
