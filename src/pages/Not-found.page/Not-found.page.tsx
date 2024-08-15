@@ -3,7 +3,7 @@ import React from 'react';
 import './Not-found-page.scss';
 import img from '../../assets/images/404-page_logo.png';
 
-const NotFoundPageComponent: React.FC = () => {
+const NotFoundPage: React.FC = () => {
   return (
     <div className="not-found-container">
       <div className="not-found-container__box">
@@ -23,4 +23,4 @@ const NotFoundPageComponent: React.FC = () => {
   );
 };
 
-export default NotFoundPageComponent;
+export default NotFoundPage;

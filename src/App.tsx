@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/Home.page/Home.page';
-import NotFoundPage from './pages/Not-found.page/Not-found.page';
-import FirsFormPage from './pages/First-form.page/First-form.page';
-import SecondFormPage from './pages/Second-form.page/Second-form.page';
+import { NotFoundPage } from './pages/Not-found.page';
+import { HomePage } from './pages/Home.page';
+import { FirsFormPage } from './pages/First-form.page';
+import { SecondFormPage } from './pages/Second-form.page';
 
 const App: React.FC = () => {
   return (
