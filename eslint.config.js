@@ -8,6 +8,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import parser from '@typescript-eslint/parser';
 import eslintImport from 'eslint-plugin-import';
+import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
 
 /**@type {import ('eslint').Linter.FlatConfig[]} */
 export default [
@@ -17,6 +18,7 @@ export default [
       react: eslintReact,
       'react-refresh': eslintReactRefresh,
       'react-compiler': eslintReactCompiler,
+      '@typescript-eslint': typescriptEslintPlugin,
       import: eslintImport,
       prettier: prettierPlugin,
     },
@@ -68,6 +70,17 @@ export default [
           optionalDependencies: true,
           peerDependencies: true,
           bundledDependencies: true,
+        },
+      ],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          args: 'after-used',
+          caughtErrors: 'all',
+          ignoreRestSiblings: false,
+          reportUsedIgnorePattern: false,
         },
       ],
       'react-compiler/react-compiler': 'error',
