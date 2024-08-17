@@ -1,30 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import img from '../../assets/images/cross.png';
+
 import './First-form.page.scss';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { active } from '../../redux/counterSlice.isActivePage';
-import { Page } from '../../models/redux.model';
 
 const FirsFormPage = () => {
-  const isActive = useAppSelector((state) => state.activeFormPage.firstPage);
-  const dispatch = useAppDispatch();
+  const [state, setState] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    window.addEventListener('load', () => {
-      dispatch(active(Page.first));
-    });
-    return () => {
-      window.removeEventListener('load', () => {});
-    };
-  }, []);
+    if (location.pathname === '/first-form') {
+      setState(true);
+    }
+  }, [state]);
 
   return (
     <div className="wrapper">
-      <div className={`first-container ${isActive ? 'active' : ''}`}>
-        <div className="first-form">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-          tempora repellendus quia, dolorem sunt obcaecati incidunt rem cumque
-          ducimus odio unde quod deleniti. Illo alias ullam fuga nemo dolores
-          molestias?
+      <div className={`form-container ${state ? 'active' : ''}`}>
+        <div className="form-container__wrapper">
+          <Link className="form-container__close" to={'/'}>
+            <img src={img} alt="cross" />
+          </Link>
+          <h2 className="form-container__title">
+            Uncontrolled components approach !
+          </h2>
+          <form className="second-form">1</form>
         </div>
       </div>
     </div>

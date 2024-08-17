@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import activeFormPageReducer from './counterSlice.isActivePage';
+import counterSliceReducer from './counterSlice';
 
 const store = configureStore({
   reducer: {
-    activeFormPage: activeFormPageReducer,
+    forms: counterSliceReducer,
   },
 });
 
