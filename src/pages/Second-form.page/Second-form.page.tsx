@@ -4,12 +4,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import img from '../../assets/images/cross.png';
-import { schema } from './schema';
 
 import { IRideForm } from '../../models/form.model';
-import PaswordComplexity from './paswordComplexity';
+import PaswordComplexity from '../../services/paswordComplexity';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { addForm } from '../../redux/counterSlice';
+import { schema } from '../../services/schema';
 
 const SecondFormPage = () => {
   const [state, setState] = useState(false);

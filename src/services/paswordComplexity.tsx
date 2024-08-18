@@ -1,7 +1,7 @@
 import React from 'react';
 import zxcvbn from 'zxcvbn';
 
-import './Second-form.page.scss';
+import './paswordComplexity.scss';
 
 const PaswordComplexity: React.FC<{ valueOfPassword: string }> = ({
   valueOfPassword,

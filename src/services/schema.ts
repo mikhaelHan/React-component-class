@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { IDownloadFile } from '../../models/form.model';
+import { IDownloadFile } from '../models/form.model';
 
 const regExpEmail = new RegExp(/^\S+@\S+\.\S+$/);
 
