@@ -495,7 +495,7 @@ body {
 
 .form-container {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -505,6 +505,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
 
   &__wrapper {
     padding: 1em 2em;

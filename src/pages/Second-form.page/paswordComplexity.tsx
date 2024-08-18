@@ -8,49 +8,38 @@ const PaswordComplexity: React.FC<{ valueOfPassword: string }> = ({
 }) => {
   const result = valueOfPassword !== undefined ? zxcvbn(valueOfPassword) : null;
 
-  const strength: () => [number, string] = () => {
-    if (result === null) return [0, '#ffffff'];
+  const colorVisible: () => [string, number] = () => {
+    if (result === null) return ['#ffffff', 0];
 
     switch (result.score) {
       case 0:
-        return [0, '#ffffff'];
-
+        return ['#ffffff', 0];
       case 1:
-        return [1, '#ff0000'];
-
+        return ['#ff0000', 1];
       case 2:
-        return [2, '#ffff00'];
-
+        return ['#ffff00', 2];
       case 3:
+        return ['#ffff00', 3];
       case 4:
-        return [3, '#00ff00'];
+        return ['#00ff00', 4];
+      default:
+        return ['#ffffff', 0];
     }
-  };
-
-  const color: () => string = () => {
-    const res: [number, string] = strength();
-    return res[1];
-  };
-
-  const visible: () => number = () => {
-    const res: [number, string] = strength();
-    return res[0];
   };
 
   return (
     <div className="password-strength-box">
-      <div
-        style={{ backgroundColor: color() }}
-        className={`password-strength-line ${visible() === 1 || visible() === 2 || visible() === 3 ? 'active' : ''}`}
-      ></div>
-      <div
-        style={{ backgroundColor: color() }}
-        className={`password-strength-line ${visible() === 2 || visible() === 3 ? 'active' : ''}`}
-      ></div>
-      <div
-        style={{ backgroundColor: color() }}
-        className={`password-strength-line ${visible() === 3 ? 'active' : ''}`}
-      ></div>
+      {[1, 2, 3, 4].map((line) => {
+        const [color, visible] = colorVisible();
+
+        return (
+          <div
+            key={line}
+            style={{ backgroundColor: color }}
+            className={`password-strength-line ${visible >= line ? 'active' : ''}`}
+          ></div>
+        );
+      })}
     </div>
   );
 };
