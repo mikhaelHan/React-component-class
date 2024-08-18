@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { IDownloadFile } from '../../models/form.model';
 
 const regExpEmail = new RegExp(/^\S+@\S+\.\S+$/);
 
@@ -40,4 +41,22 @@ export const schema = yup.object().shape({
     .boolean()
     .required('You must agree to the Terms and Conditions')
     .oneOf([true], 'You must agree to the Terms and Conditions'),
+  image: yup
+    .mixed<IDownloadFile>()
+    .required('Please select a image')
+    .test(
+      'fileType',
+      'Unsupported file format (allowed jpeg or png)',
+      (file) => {
+        return (
+          file &&
+          file[0] &&
+          /(png|jpeg)$/.test(file[0].type.split('/').reverse()[0])
+        );
+      },
+    )
+    .test('fileSize', 'File size must be less 1MB', (file) => {
+      return file && file[0] && file[0].size <= 1024000;
+    }),
+  country: yup.string().required('This field is required'),
 });

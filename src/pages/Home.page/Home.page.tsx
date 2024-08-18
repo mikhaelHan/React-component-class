@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hook';
 
 import './Home.page.scss';
-import { IForm } from '../../models/form.model';
+import { IWriteForm } from '../../models/form.model';
 
 const HomePage = () => {
-  const selector: IForm[] = useAppSelector((state) => {
-    return state.forms;
+  const selector: IWriteForm[] = useAppSelector((state) => {
+    return state.forms.forms;
   });
 
   return (
@@ -30,7 +30,7 @@ const HomePage = () => {
         ) : (
           <main className="home-main">
             <ul className="home-form-list">
-              {selector.map((el: IForm, ind: number) => (
+              {selector.map((el: IWriteForm, ind: number) => (
                 <li
                   style={
                     ind === 0
@@ -47,6 +47,15 @@ const HomePage = () => {
                   <p>{el.age}</p>
                   <p>{el.gender}</p>
                   <p>{String(el.condition)}</p>
+                  <div className="home-form-list__item--img-box">
+                    11
+                    <img
+                      className="home-form-list__item--img"
+                      src={el.image as string}
+                      alt="Uploaded Image"
+                    />
+                  </div>
+                  <p>{el.country}</p>
                 </li>
               ))}
             </ul>
