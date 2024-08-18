@@ -1,0 +1,56 @@
+.home-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header {
+  padding: 0 5%;
+  flex: 1 0 10%;
+  background-color: #9d9d9d;
+  display: flex;
+  align-items: center;
+  gap: 5%;
+
+  &__link {
+    font-size: 1.5em;
+    font-style: oblique;
+    text-decoration: underline;
+    color: #000000;
+  }
+}
+
+.home-main {
+  flex: 1 0 90%;
+  padding: 5%;
+  font-size: 2em;
+}
+
+.home-form-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  overflow-y: scroll;
+
+  &__item {
+    font-size: 0.6em;
+    padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 0.1em;
+    border-radius: 0.5em;
+  }
+
+  &__item--img-box {
+    width: 12em;
+    height: auto;
+  }
+
+  &__item--img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

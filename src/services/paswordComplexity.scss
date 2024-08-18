@@ -1,0 +1,23 @@
+.form__input-error.password {
+  bottom: -1.8em;
+}
+
+.password-strength-box {
+  position: absolute;
+  left: 1em;
+  bottom: -0.4em;
+  width: 90%;
+  height: 0.2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.password-strength-line {
+  flex: 1 0 25%;
+  display: block;
+  opacity: 0;
+}
+
+.password-strength-line.active {
+  opacity: 1;
+}
