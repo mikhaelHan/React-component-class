@@ -1,27 +1,32 @@
 import * as yup from 'yup';
-import { IDownloadFile } from '../../models/form.model';
+import { IDownloadImage } from '../../models/form.model';
 
 const regExpEmail = new RegExp(/^\S+@\S+\.\S+$/);
 
-export const schema = yup.object({
-  name: yup
+export const schema = yup.object().shape({
+  country: yup.string().required('Field Country is required'),
+  image: yup
+    .mixed<IDownloadImage>()
+    .required('Please select a image')
+    .test(
+      'fileType',
+      'Unsupported file format (allowed jpeg or png)',
+      (file) => {
+        return file && /(png|jpeg)$/.test(file.type.split('/').reverse()[0]);
+      },
+    )
+    .test('fileSize', 'File size must be less 1MB', (file) => {
+      return file && file.size <= 1024000;
+    }),
+  condition: yup
     .string()
-    .trim()
-    .required('Field Name is required')
-    .matches(
-      /^[А-ЯA-Z][а-яА-Яa-zA-Z]*$/,
-      'Name must start with an uppercase letter',
-    ),
-  age: yup
-    .number()
-    .required('Field Age is required')
-    .positive('Age must be a positive number')
-    .integer('Age must be an integer')
-    .typeError('Field Age is required'),
-  email: yup
+    .required('You must agree to the Terms and Conditions')
+    .oneOf(['on'], 'You must agree to the Terms and Conditions'),
+  gender: yup.string().required('Field gender is required'),
+  confirmPassword: yup
     .string()
-    .required('Field Email is required')
-    .matches(regExpEmail, 'Invalid Email format'),
+    .required('Field confirm password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
   password: yup
     .string()
     .required('Field password is required')
@@ -32,31 +37,22 @@ export const schema = yup.object({
       /[@#$%&]+/,
       'Password must contain at least one special character (@, #, $, %, &)',
     ),
-  confirmPassword: yup
+  email: yup
     .string()
-    .required('Field confirm password is required')
-    .oneOf([yup.ref('password')], 'Passwords must match'),
-  gender: yup.string().required('Field gender is required'),
-  condition: yup
-    .boolean()
-    .required('You must agree to the Terms and Conditions')
-    .oneOf([true], 'You must agree to the Terms and Conditions'),
-  image: yup
-    .mixed<IDownloadFile>()
-    .required('Please select a image')
-    .test(
-      'fileType',
-      'Unsupported file format (allowed jpeg or png)',
-      (file) => {
-        return (
-          file &&
-          file[0] &&
-          /(png|jpeg)$/.test(file[0].type.split('/').reverse()[0])
-        );
-      },
-    )
-    .test('fileSize', 'File size must be less 1MB', (file) => {
-      return file && file[0] && file[0].size <= 1024000;
-    }),
-  country: yup.string().required('Field Country is required'),
+    .required('Field Email is required')
+    .matches(regExpEmail, 'Invalid Email format'),
+  age: yup
+    .number()
+    .required('Field Age is required')
+    .positive('Age must be a positive number')
+    .integer('Age must be an integer')
+    .typeError('Field Age is required'),
+  name: yup
+    .string()
+    .trim()
+    .required('Field Name is required')
+    .matches(
+      /^[А-ЯA-Z][а-яА-Яa-zA-Z]*$/,
+      'Name must start with an uppercase letter',
+    ),
 });

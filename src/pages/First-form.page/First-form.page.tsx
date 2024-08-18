@@ -1,15 +1,15 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import img from '../../assets/images/cross.png';
 
 import './First-form.page.scss';
 // import { IRideForm } from '../../models/form.model';
-// import { addForm } from '../../redux/counterSlice';
-// import { useAppDispatch } from '../../redux/hook';
+import { useAppDispatch } from '../../redux/hook';
 import { schema } from './schema';
 import { useAppSelector } from '../../redux/hook';
+import { IDownloadImage } from '../../models/form.model';
+import { addForm } from '../../redux/counterSlice';
 
 const FirsFormPage = () => {
   const [state, setState] = useState(false);
@@ -28,25 +28,30 @@ const FirsFormPage = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
   const conditionRef = useRef<HTMLInputElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLSelectElement>(null);
+  const [imageRef, setImageRef] = useState<IDownloadImage>();
 
   const [errorState, setErrorState] = useState('');
   const countrySelector = useAppSelector((state) => state.forms.countries);
 
-  // const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleFileChange = (event: FormEvent<HTMLInputElement>) => {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if (file !== undefined) setImageRef(file as unknown as IDownloadImage);
+  };
 
   const hundleSubmit = (event: FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     const nameValue = nameRef.current?.value;
-    const ageValue = ageRef.current?.value;
+    const ageValue = Number(ageRef.current?.value);
     const emailValue = emailRef.current?.value;
     const passwordValue = passwordRef.current?.value;
     const confirmPasswordValue = confirmPasswordRef.current?.value;
     const genderValue = genderRef.current?.value;
     const conditionValue = conditionRef.current?.value;
-    const imageValue = imageRef.current?.value;
     const countryValue = countryRef.current?.value;
     schema
       .validate({
@@ -57,10 +62,45 @@ const FirsFormPage = () => {
         confirmPassword: confirmPasswordValue,
         gender: genderValue,
         condition: conditionValue,
-        image: imageValue,
+        image: imageRef,
         country: countryValue,
       })
-      .then(() => {})
+      .then(() => {
+        const file = imageRef as unknown as Blob;
+        const reader = new FileReader();
+        let base64Data: string | ArrayBuffer | null = null;
+
+        if (file !== undefined) {
+          reader.onload = function (e: ProgressEvent<FileReader>) {
+            base64Data = e.target ? e.target.result : null;
+            if (
+              nameValue &&
+              ageValue &&
+              emailValue &&
+              passwordValue &&
+              confirmPasswordValue &&
+              genderValue &&
+              countryValue
+            )
+              dispatch(
+                addForm({
+                  name: nameValue,
+                  age: ageValue,
+                  email: emailValue,
+                  password: passwordValue,
+                  confirmPassword: confirmPasswordValue,
+                  gender: genderValue,
+                  condition: true,
+                  image: base64Data,
+                  country: countryValue,
+                }),
+              );
+          };
+
+          reader.readAsDataURL(file);
+          navigate('/');
+        }
+      })
       .catch((error) => {
         setErrorState(error.message);
       });
@@ -149,7 +189,7 @@ const FirsFormPage = () => {
 
             <div className="form__input-box">
               <label className="form__input-label">Upload picture</label>
-              <input name="image" ref={imageRef} type="file" />
+              <input name="image" onChange={handleFileChange} type="file" />
             </div>
 
             <div className="form__input-box">
@@ -163,7 +203,7 @@ const FirsFormPage = () => {
               </select>
             </div>
 
-            <div>{errorState}</div>
+            <div style={{ color: 'red' }}>{errorState}</div>
 
             <input
               onClick={(e) => hundleSubmit(e)}
